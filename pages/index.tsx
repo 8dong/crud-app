@@ -1,7 +1,13 @@
+import DataListSection from '../components/UI/organisms/DataListSection';
+
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  return <div></div>;
+  return (
+    <>
+      <DataListSection />
+    </>
+  );
 };
 
 export default Home;
