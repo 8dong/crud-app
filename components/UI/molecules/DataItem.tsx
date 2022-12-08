@@ -1,13 +1,21 @@
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 import DataTitleText from '../atoms/text/DataTitleText';
 import TagList from './TagList';
 import Button from '../atoms/button/Button';
 import DateText from '../atoms/text/DateText';
 
+import dataListSlice from '../../../redux/slice/dataListSlice';
+
 import type { DataItemType } from '../../../data/dataList';
 
 const DataItem = ({ data }: { data: DataItemType }) => {
+  const dispatch = useDispatch();
+  const handleClickDeleteButton = () => {
+    dispatch(dataListSlice.actions.removeItem(data));
+  };
+
   return (
     <DataItemWrapper>
       <div className='title'>
@@ -19,7 +27,9 @@ const DataItem = ({ data }: { data: DataItemType }) => {
       <p className='desc'>{data.description}</p>
       <div className='buttonGroup'>
         <Button bgColor='#0066ff'>Eidt</Button>
-        <Button bgColor='#e74c3c'>Delete</Button>
+        <Button bgColor='#e74c3c' onClick={handleClickDeleteButton}>
+          Delete
+        </Button>
       </div>
       <DateText dateText={data.createdAt} />
     </DataItemWrapper>
