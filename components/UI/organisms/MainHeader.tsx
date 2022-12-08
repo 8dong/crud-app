@@ -1,16 +1,27 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
 
 import LogoText from '../atoms/text/LogoText';
 import Button from '../atoms/button/Button';
+import AddModalFormSection from './AddModalFormSection';
+
+import ModalContext from '../../../context/modal/modalContext';
 
 const MainHeader = () => {
+  const { showModalHandler } = useContext(ModalContext)!;
+  const handleClickAddButton = () => {
+    showModalHandler(<AddModalFormSection />);
+  };
+
   return (
     <MainHeaderWrapper>
       <div className='logoText'>
         <LogoText logoText='CRUD APP' />
       </div>
       <div className='AddButton'>
-        <Button bgColor='#0066ff'>Add</Button>
+        <Button bgColor='#0066ff' onClick={handleClickAddButton}>
+          Add
+        </Button>
       </div>
     </MainHeaderWrapper>
   );
