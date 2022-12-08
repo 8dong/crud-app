@@ -5,11 +5,11 @@ import PageLayout from '../components/layout/PageLayout';
 import MainHeader from '../components/UI/organisms/MainHeader';
 
 import store, { persistor } from '../redux/store/store';
+import ModalContextProvider from '../context/modal/ModalContextProvider';
 
 import '../styles/globals.css';
 
 import type { AppProps } from 'next/app';
-import ModalContextProvider from '../context/modal/ModalContextProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
