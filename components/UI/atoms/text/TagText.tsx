@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-const TagText = ({ tagText }: { tagText: string }) => {
-  return <TagTextWrapper>{tagText}</TagTextWrapper>;
+const TagText = ({ tagText, allowClick }: { tagText: string; allowClick: boolean }) => {
+  return <TagTextWrapper allowClick={allowClick}>{tagText}</TagTextWrapper>;
 };
 
-const TagTextWrapper = styled.span`
+const TagTextWrapper = styled.span<{ allowClick: boolean }>`
   display: inline-block;
 
   padding: 10px 15px;
@@ -14,6 +14,10 @@ const TagTextWrapper = styled.span`
   background-color: #d35400;
 
   color: #fff;
+
+  &:hover {
+    background-color: ${(props) => (props.allowClick ? '#d35400ba' : '#d35400')};
+  }
 `;
 
 export default TagText;
