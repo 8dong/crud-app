@@ -27,7 +27,7 @@ const EditModalFormSection = ({ data }: { data: DataItemType }) => {
   };
 
   const handleChangeTagInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTagValue(event.target.value);
+    setTagValue(event.target.value.trim());
   };
 
   const handleKeyDownTagInput = (event: React.KeyboardEvent<HTMLInputElement>) => {

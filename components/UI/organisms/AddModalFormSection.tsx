@@ -27,9 +27,7 @@ const AddModalFormSection = () => {
   };
 
   const handleChangeTagInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.trim().length === 0) return;
-
-    setTagValue(event.target.value);
+    setTagValue(event.target.value.trim());
   };
 
   const handleKeyDownTagInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
