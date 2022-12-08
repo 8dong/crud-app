@@ -27,8 +27,6 @@ const EditModalFormSection = ({ data }: { data: DataItemType }) => {
   };
 
   const handleChangeTagInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.trim().length === 0) return;
-
     setTagValue(event.target.value);
   };
 
