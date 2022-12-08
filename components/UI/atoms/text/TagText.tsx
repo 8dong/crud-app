@@ -15,6 +15,8 @@ const TagTextWrapper = styled.span<{ allowClick: boolean }>`
 
   color: #fff;
 
+  word-break: keep-all;
+
   &:hover {
     background-color: ${(props) => (props.allowClick ? '#d35400ba' : '#d35400')};
   }
