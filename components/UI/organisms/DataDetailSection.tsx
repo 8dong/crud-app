@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Button from '../atoms/button/Button';
 import DateText from '../atoms/text/DateText';
 import TagList from '../molecules/TagList';
-import EditModalFormSection from './EditModalFormSection';
+import EditModalFormSection from './ModalFormSection';
 import DeleteConfirmModalSection from './DeleteConfirmModalSection';
 
 import ModalContext from '../../../context/modal/modalContext';
@@ -14,7 +14,7 @@ import type { DataItemType } from '../../../data/dataList';
 const DataDetailSection = ({ data }: { data: DataItemType }) => {
   const { showModalHandler } = useContext(ModalContext)!;
   const handleClickEditButton = () => {
-    showModalHandler(<EditModalFormSection data={data} />);
+    showModalHandler(<EditModalFormSection type='Edit' data={data} />);
   };
 
   const handleClickDeleteButton = () => {

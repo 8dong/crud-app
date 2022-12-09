@@ -3,14 +3,14 @@ import { useContext } from 'react';
 
 import LogoText from '../atoms/text/LogoText';
 import Button from '../atoms/button/Button';
-import AddModalFormSection from './AddModalFormSection';
 
 import ModalContext from '../../../context/modal/modalContext';
+import ModalFormSection from './ModalFormSection';
 
 const MainHeader = () => {
   const { showModalHandler } = useContext(ModalContext)!;
   const handleClickAddButton = () => {
-    showModalHandler(<AddModalFormSection />);
+    showModalHandler(<ModalFormSection type='Add' />);
   };
 
   return (

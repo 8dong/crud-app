@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import Button from '../atoms/button/Button';
 import InputField from '../atoms/input/InputField';
@@ -11,12 +12,13 @@ import dataListSlice from '../../../redux/slice/dataListSlice';
 import ModalContext from '../../../context/modal/modalContext';
 
 import type { DataItemType } from '../../../data/dataList';
+import type { RootState } from '../../../redux/store/store';
 
-const EditModalFormSection = ({ data }: { data: DataItemType }) => {
-  const [titleValue, setTitleValue] = useState(data.title);
-  const [descValue, setDescValue] = useState(data.description);
+const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataItemType }) => {
+  const [titleValue, setTitleValue] = useState(type === 'Edit' ? data!.title : '');
+  const [descValue, setDescValue] = useState(type === 'Edit' ? data!.description : '');
   const [tagValue, setTagValue] = useState('');
-  const [tagList, setTagList] = useState(data.tags);
+  const [tagList, setTagList] = useState(type === 'Edit' ? data!.tags : []);
 
   const handleChangeTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(event.target.value);
@@ -64,6 +66,29 @@ const EditModalFormSection = ({ data }: { data: DataItemType }) => {
     hideModalHandler();
   };
 
+  const dataList = useSelector((store: RootState) => store.data);
+  const router = useRouter();
+  const handleClickAddButton = () => {
+    const editedData = {
+      id: dataList.length + 1,
+      title: titleValue,
+      description: descValue,
+      tags: tagList,
+      createdAt: new Date().toLocaleDateString().replace(/\.\s/g, '-').replace(/\./, '')
+    };
+
+    if (tagValue.length !== 0 && tagList.length < 3) {
+      editedData.tags = [...tagList, tagValue];
+    }
+
+    dispatch(dataListSlice.actions.addItem(editedData));
+    hideModalHandler();
+
+    if (router.pathname !== '/') {
+      router.replace('/');
+    }
+  };
+
   const handleClickTagItem = (tagIndex: number) => {
     return () => {
       const newTagList = tagList.filter((_, index) => index !== tagIndex);
@@ -75,8 +100,8 @@ const EditModalFormSection = ({ data }: { data: DataItemType }) => {
     titleValue.trim().length !== 0 && descValue.trim().length !== 0 && tagList.length !== 0;
 
   return (
-    <EditModalFormSectionWrapper>
-      <h2>Edit Item</h2>
+    <ModalFormSectionWrapper>
+      <h2>{type} Item</h2>
       <div className='titleInput'>
         <InputField
           value={titleValue}
@@ -108,15 +133,19 @@ const EditModalFormSection = ({ data }: { data: DataItemType }) => {
         <Button bgColor='#e74c3c' onClick={handleClickCancelButton}>
           Cancel
         </Button>
-        <Button bgColor='#0066ff' onClick={handleClickEditButton} disabled={!isFormValid}>
-          Edit
+        <Button
+          bgColor='#0066ff'
+          onClick={type === 'Edit' ? handleClickEditButton : handleClickAddButton}
+          disabled={!isFormValid}
+        >
+          {type}
         </Button>
       </div>
-    </EditModalFormSectionWrapper>
+    </ModalFormSectionWrapper>
   );
 };
 
-const EditModalFormSectionWrapper = styled.form`
+const ModalFormSectionWrapper = styled.form`
   display: flex;
   flex-direction: column;
 
@@ -158,4 +187,4 @@ const EditModalFormSectionWrapper = styled.form`
   }
 `;
 
-export default EditModalFormSection;
+export default ModalFormSection;

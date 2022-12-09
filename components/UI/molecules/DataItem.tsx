@@ -6,7 +6,7 @@ import DataTitleText from '../atoms/text/DataTitleText';
 import TagList from './TagList';
 import Button from '../atoms/button/Button';
 import DateText from '../atoms/text/DateText';
-import EditModalFormSection from '../organisms/EditModalFormSection';
+import ModalFormSection from '../organisms/ModalFormSection';
 
 import dataListSlice from '../../../redux/slice/dataListSlice';
 import ModalContext from '../../../context/modal/modalContext';
@@ -21,7 +21,7 @@ const DataItem = ({ data }: { data: DataItemType }) => {
 
   const { showModalHandler } = useContext(ModalContext)!;
   const handleClickEditButton = () => {
-    showModalHandler(<EditModalFormSection data={data} />);
+    showModalHandler(<ModalFormSection type='Edit' data={data} />);
   };
 
   return (
