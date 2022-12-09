@@ -8,7 +8,7 @@ const dataListSlice = createSlice({
   reducers: {
     addItem(state, action) {
       // action.payload : DataType;
-      const newDataList = state.concat(action.payload);
+      const newDataList = [action.payload, ...state];
 
       window.localStorage.setItem('data', JSON.stringify(newDataList));
       return newDataList;
