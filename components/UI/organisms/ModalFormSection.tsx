@@ -43,6 +43,17 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
     }
   };
 
+  const handlePasteTagInput = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const pastedValue = event.clipboardData.getData('text').trim();
+    const arrPastedValue = pastedValue.split(/\s+/);
+
+    const newTagList = [...tagList, ...arrPastedValue].slice(0, 3);
+
+    setTagList(newTagList);
+    setTagValue('');
+  };
+
   const { hideModalHandler } = useContext(ModalContext)!;
   const handleClickCancelButton = () => {
     hideModalHandler();
@@ -126,6 +137,7 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
           disabled={tagList.length >= 3 ? true : false}
           onChange={handleChangeTagInput}
           onKeyDown={handleKeyDownTagInput}
+          onPaste={handlePasteTagInput}
           placeholder='Tag'
         />
       </div>

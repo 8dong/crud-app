@@ -6,6 +6,7 @@ interface InputFieldProps {
   disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onPaste?: (e: React.ClipboardEvent<HTMLInputElement>) => void;
   placeholder: string;
   maxLength?: number;
 }
@@ -16,13 +17,15 @@ const InputField = ({
   placeholder,
   maxLength,
   onChange,
-  onKeyDown
+  onKeyDown,
+  onPaste
 }: InputFieldProps) => {
   return (
     <InputFieldWrapper
       disabled={disabled ?? false}
       onChange={onChange}
       onKeyDown={onKeyDown}
+      onPaste={onPaste}
       value={value}
       placeholder={placeholder}
       maxLength={maxLength ?? 524288}
