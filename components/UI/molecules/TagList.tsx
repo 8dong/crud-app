@@ -9,16 +9,16 @@ const TagList = ({
   handleClickTagItem
 }: {
   tags: string[];
-  handleClickTagItem?: (index: number) => () => void;
+  handleClickTagItem?: (tagValue: string) => () => void;
 }) => {
   const allowClick = !!handleClickTagItem;
 
   return (
     <TagListWrapper allowClick={allowClick}>
       <TransitionGroup component='ul'>
-        {tags.map((tag, index) => (
-          <CSSTransition key={index} timeout={500} classNames='fade' mountOnEnter unmountOnExit>
-            <li className='tagItem' onClick={handleClickTagItem && handleClickTagItem(index)}>
+        {tags.map((tag) => (
+          <CSSTransition key={tag} timeout={500} classNames='fade' mountOnEnter unmountOnExit>
+            <li className='tagItem' onClick={handleClickTagItem && handleClickTagItem(tag)}>
               <TagText tagText={tag} allowClick={allowClick} />
             </li>
           </CSSTransition>

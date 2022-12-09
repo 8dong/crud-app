@@ -100,9 +100,9 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
     }
   };
 
-  const handleClickTagItem = (tagIndex: number) => {
+  const handleClickTagItem = (tagValue: string) => {
     return () => {
-      const newTagList = tagList.filter((_, index) => index !== tagIndex);
+      const newTagList = tagList.filter((tag) => tag !== tagValue);
       setTagList(newTagList);
     };
   };
