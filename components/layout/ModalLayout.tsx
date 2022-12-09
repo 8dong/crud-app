@@ -46,7 +46,8 @@ const BackdropWrapper = styled.div`
 `;
 
 const ModalOverlayWrapper = styled.div`
-  width: 600px;
+  width: 80%;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 20px;

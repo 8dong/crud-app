@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import Button from '../atoms/button/Button';
 import InputField from '../atoms/input/InputField';
@@ -48,6 +49,7 @@ const AddModalFormSection = () => {
 
   const dispatch = useDispatch();
   const dataList = useSelector((store: RootState) => store.data);
+  const router = useRouter();
   const handleClickAddButton = () => {
     const editedData = {
       id: dataList.length + 1,
@@ -63,6 +65,10 @@ const AddModalFormSection = () => {
 
     dispatch(dataListSlice.actions.addItem(editedData));
     hideModalHandler();
+
+    if (router.pathname !== '/') {
+      router.replace('/');
+    }
   };
 
   const handleClickTagItem = (tagIndex: number) => {
