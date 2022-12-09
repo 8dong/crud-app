@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import TagText from '../atoms/text/TagText';
 
@@ -13,26 +15,36 @@ const TagList = ({
 
   return (
     <TagListWrapper allowClick={allowClick}>
-      {tags.map((tag, index) => (
-        <li
-          key={index}
-          className='tagItem'
-          onClick={handleClickTagItem && handleClickTagItem(index)}
-        >
-          <TagText tagText={tag} allowClick={allowClick} />
-        </li>
-      ))}
+      <TransitionGroup component='ul'>
+        {tags.map((tag, index) => (
+          <CSSTransition key={index} timeout={500} classNames='fade' mountOnEnter unmountOnExit>
+            <li className='tagItem' onClick={handleClickTagItem && handleClickTagItem(index)}>
+              <TagText tagText={tag} allowClick={allowClick} />
+            </li>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </TagListWrapper>
   );
 };
 
-const TagListWrapper = styled.ul<{ allowClick: boolean }>`
-  display: flex;
+const TagListWrapper = styled.div<{ allowClick: boolean }>`
+  ul {
+    display: flex;
+  }
 
   .tagItem {
     margin: 5px;
 
     cursor: ${(props) => (props.allowClick ? 'pointer' : 'auto')};
+  }
+
+  .fade-enter-active {
+    animation: add-item 500ms;
+  }
+
+  .fade-exit-active {
+    animation: del-item 500ms;
   }
 `;
 

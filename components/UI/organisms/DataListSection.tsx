@@ -51,38 +51,6 @@ const DataListSectionWrapper = styled.section`
   .fade-exit-active {
     animation: del-item 500ms;
   }
-
-  @keyframes add-item {
-    0% {
-      opacity: 0;
-    }
-
-    30% {
-      opacity: 0.5;
-      transform: translateY(5px);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes del-item {
-    0% {
-      opacity: 1;
-    }
-
-    30% {
-      opacity: 0.5;
-      transform: translateY(5px);
-    }
-
-    100% {
-      opacity: 0;
-      transform: translateY(0);
-    }
-  }
 `;
 
 export default DataListSection;
