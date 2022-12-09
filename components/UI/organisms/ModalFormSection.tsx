@@ -33,7 +33,7 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
   };
 
   const handleKeyDownTagInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === ' ' && tagValue.length !== 0) {
+    if (event.key === ' ' && tagValue.length !== 0 && !tagList.includes(tagValue.trim())) {
       setTagList((prev) => [...prev, tagValue.trim()]);
       setTagValue('');
     } else if (event.key === 'Backspace' && tagValue.length === 0) {
@@ -45,12 +45,12 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
 
   const handlePasteTagInput = (event: React.ClipboardEvent<HTMLInputElement>) => {
     event.preventDefault();
-    const pastedValue = event.clipboardData.getData('text').trim();
-    const arrPastedValue = pastedValue.split(/\s+/);
+    const pastedTagValue = event.clipboardData.getData('text').trim();
+    const pastedTagList = [...new Set(pastedTagValue.split(/\s+/))];
 
-    const newTagList = [...tagList, ...arrPastedValue].slice(0, 3);
+    const newTagList = new Set([...tagList, ...pastedTagList]);
 
-    setTagList(newTagList);
+    setTagList([...newTagList].slice(0, 3));
     setTagValue('');
   };
 
@@ -62,14 +62,14 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
   const dispatch = useDispatch();
   const handleClickEditButton = () => {
     const editedData = {
-      id: data.id,
+      id: data!.id,
       title: titleValue,
       description: descValue,
       tags: tagList,
-      createdAt: data.createdAt
+      createdAt: data!.createdAt
     };
 
-    if (tagValue.length !== 0 && tagList.length < 3) {
+    if (tagValue.length !== 0 && tagList.length < 3 && !editedData.tags.includes(tagValue.trim())) {
       editedData.tags = [...tagList, tagValue];
     }
 
@@ -88,7 +88,7 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
       createdAt: new Date().toLocaleDateString().replace(/\.\s/g, '-').replace(/\./, '')
     };
 
-    if (tagValue.length !== 0 && tagList.length < 3) {
+    if (tagValue.length !== 0 && tagList.length < 3 && !tagList.includes(tagValue)) {
       editedData.tags = [...tagList, tagValue];
     }
 
