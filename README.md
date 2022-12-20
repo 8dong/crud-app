@@ -8,9 +8,11 @@
 
 3. <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a> 접속
 
-## 프로젝트 구현 영상
+## 프로젝트 구현 영상 && 배포 URL
 
-<a href="https://www.youtube.com/watch?v=M4ZSlE3CQw4">https://www.youtube.com/watch?v=M4ZSlE3CQw4</a>
+배포 영상 : <a href="https://www.youtube.com/watch?v=M4ZSlE3CQw4">https://www.youtube.com/watch?v=M4ZSlE3CQw4</a>
+
+배포 URL : <a href="https://crud-app-taupe.vercel.app/">https://crud-app-taupe.vercel.app/</a>
 
 ## 기술 스택
 
