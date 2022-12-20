@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useContext, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import Button from '../atoms/button/Button';
@@ -12,7 +12,6 @@ import dataListSlice from '../../../redux/slice/dataListSlice';
 import ModalContext from '../../../context/modal/modalContext';
 
 import type { DataItemType } from '../../../data/dataList';
-import type { RootState } from '../../../redux/store/store';
 
 const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataItemType }) => {
   const [titleValue, setTitleValue] = useState(type === 'Edit' ? data!.title : '');
@@ -77,11 +76,10 @@ const ModalFormSection = ({ type, data }: { type: 'Edit' | 'Add'; data?: DataIte
     hideModalHandler();
   };
 
-  const dataList = useSelector((store: RootState) => store.data);
   const router = useRouter();
   const handleClickAddButton = () => {
     const editedData = {
-      id: dataList.length + 1,
+      id: new Date().getTime(),
       title: titleValue,
       description: descValue,
       tags: tagList,
